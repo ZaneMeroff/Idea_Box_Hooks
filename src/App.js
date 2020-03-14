@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import Form from './Form.js';
+import IdeasContainer from './IdeasContainer';
+import Ideas from './Ideas';
 
-function App() {
+const App = () => {
+
+  const [ ideas, setIdeas ] = useState([])
+
+  const addIdea = idea => {
+    setIdeas( [...ideas, idea] )
+  }
+
+  const deleteIdea = id => {
+    let filteredIdeas = ideas.filter(idea => idea.id !== id)
+    setIdeas( filteredIdeas )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <main>
+      <h1>🍄Hoookin BoX o' IdEaS 🥦</h1>
+      <Form addIdea={addIdea}/>
+      <IdeasContainer ideas={ideas} deleteIdea={deleteIdea}/>
+    </main>
+  )
+
 }
 
 export default App;
